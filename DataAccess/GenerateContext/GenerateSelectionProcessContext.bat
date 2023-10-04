@@ -1,0 +1,1 @@
+﻿dotnet ef dbcontext scaffold --no-pluralize --no-onconfiguring --use-database-names "Server=JULIANSOTOGOMEZ\SQLEXPRESS;Database=PandaPe;User Id=sa;Password=Blink3027@;" Microsoft.EntityFrameworkCore.SqlServer -f -t Candidates -t CandidateExperiences  --context SelectionProcessContext  --context-dir DataAccess/Contexts -o Domain/Entities/SelectionProcessEntities
