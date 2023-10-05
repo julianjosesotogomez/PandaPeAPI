@@ -10,8 +10,9 @@ namespace PandaPeAPI.Helpers
 
         public AutomapperConfig()
         {
-
+                
             CreateMap<CandidatesDTO, Candidates>().ReverseMap();
+            CreateMap<CandidateExperiencesList, CandidateExperiences>().ReverseMap();
         }
 
     }

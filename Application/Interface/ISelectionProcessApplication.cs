@@ -8,5 +8,7 @@ namespace PandaPeAPI.Application.Interface
     public interface ISelectionProcessApplication
     {
         public ResponseEndPointDTO<List<CandidatesDTO>> GetListCandidates();
+        public ResponseEndPointDTO<bool> CreateCandidate(RequestCreateCandidateDTO requestCreateCandidateDTO);
+        public ResponseEndPointDTO<bool> UpdateCandidate(RequestUpdateCandidateDTO requestUpdateCandidateDTO);
     }
 }

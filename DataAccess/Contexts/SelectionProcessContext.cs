@@ -25,9 +25,9 @@ namespace PandaPeAPI.DataAccess.Contexts
             modelBuilder.Entity<CandidateExperiences>(entity =>
             {
                 entity.HasKey(e => e.IdCandidateExperience)
-                    .HasName("PK__Candidat__D9A60D65B3E4DC0B");
+                    .HasName("PK__Candidat__D9A60D6582F03617");
 
-                entity.Property(e => e.IdCandidateExperience).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.IdCandidateExperience).ValueGeneratedNever();
 
                 entity.Property(e => e.BeginDate).HasColumnType("datetime");
 
@@ -54,18 +54,18 @@ namespace PandaPeAPI.DataAccess.Contexts
                 entity.HasOne(d => d.IdCandidateNavigation)
                     .WithMany(p => p.CandidateExperiences)
                     .HasForeignKey(d => d.IdCandidate)
-                    .HasConstraintName("FK__Candidate__IdCan__32E0915F");
+                    .HasConstraintName("FK__Candidate__IdCan__38996AB5");
             });
 
             modelBuilder.Entity<Candidates>(entity =>
             {
                 entity.HasKey(e => e.IdCandidate)
-                    .HasName("PK__Candidat__D5598973FFC02124");
+                    .HasName("PK__Candidat__D559897353F901F1");
 
-                entity.HasIndex(e => e.Email, "UQ__Candidat__A9D10534498ADE4C")
+                entity.HasIndex(e => e.Email, "UQ__Candidat__A9D10534CAA76520")
                     .IsUnique();
 
-                entity.Property(e => e.IdCandidate).HasDefaultValueSql("(newid())");
+                entity.Property(e => e.IdCandidate).ValueGeneratedNever();
 
                 entity.Property(e => e.Birthdate).HasColumnType("datetime");
 

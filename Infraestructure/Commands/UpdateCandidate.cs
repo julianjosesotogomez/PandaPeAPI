@@ -1,6 +1,8 @@
-﻿namespace PandaPeAPI.Infraestructure.Commands
+﻿using MediatR;
+using PandaPeAPI.Domain.DTOs;
+
+namespace PandaPeAPI.Infraestructure.Commands
 {
-    public class UpdateCandidate
-    {
-    }
+    public record UpdateCandidate(RequestUpdateCandidateDTO requestUpdateCandidateDTO) : IRequest<bool>;
+
 }

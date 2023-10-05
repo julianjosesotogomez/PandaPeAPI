@@ -1,6 +1,7 @@
-﻿namespace PandaPeAPI.Infraestructure.Commands
+﻿using MediatR;
+using PandaPeAPI.Domain.DTOs;
+
+namespace PandaPeAPI.Infraestructure.Commands
 {
-    public class CreateCandidate
-    {
-    }
+    public record CreateCandidate(RequestCreateCandidateDTO requestCreateCandidateDTO) :IRequest<bool>;
 }

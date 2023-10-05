@@ -23,8 +23,9 @@ namespace PandaPeAPI.Domain.Handlers
         #region Handle
         public async Task<List<CandidatesDTO>> Handle(GetRegisteredCandidates request, CancellationToken cancellationToken)
         {
-            var task = await _selectionProcessContext.Candidates.ToListAsync(cancellationToken);
+            var task =  _selectionProcessContext.Candidates.Include(x=>x.CandidateExperiences).ToList();
             return _mapper.Map<List<CandidatesDTO>>(task);
+
         }
         #endregion
     }

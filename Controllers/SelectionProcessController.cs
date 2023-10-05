@@ -22,6 +22,10 @@ namespace PandaPeAPI.Controllers
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Servicio que permite obtener el listado de los candidatos 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route(nameof(SelectionProcessController.GetListCandidates))]
         public async Task<ResponseEndPointDTO<List<CandidatesDTO>>> GetListCandidates()
@@ -29,6 +33,34 @@ namespace PandaPeAPI.Controllers
             return await Task.Run(() =>
             {
                 return _selectionProcessApplication.GetListCandidates();
+            });
+        }
+        /// <summary>
+        /// Servicio para crear candidatos
+        /// </summary>
+        /// <param name="requestCreateCandidateDTO"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route(nameof(SelectionProcessController.CreateCandidate))]
+        public async Task<ResponseEndPointDTO<bool>> CreateCandidate(RequestCreateCandidateDTO requestCreateCandidateDTO)
+        {
+            return await Task.Run(() =>
+            {
+                return _selectionProcessApplication.CreateCandidate(requestCreateCandidateDTO);
+            });
+        }
+        /// <summary>
+        /// Servicio para actualizar los datos por candidato
+        /// </summary>
+        /// <param name="requestUpdateCandidateDTO"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route(nameof (SelectionProcessController.UpdateCandidate))]
+        public async Task<ResponseEndPointDTO<bool>> UpdateCandidate([FromBody] RequestUpdateCandidateDTO requestUpdateCandidateDTO)
+        {
+            return await Task.Run(() =>
+            {
+                return _selectionProcessApplication.UpdateCandidate(requestUpdateCandidateDTO);
             });
         }
         #endregion

@@ -1,45 +1,36 @@
-﻿using PandaPeAPI.Domain.Entities.SelectionProcessEntities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PandaPeAPI.Domain.DTOs
 {
-    public class CandidatesDTO
+    public class RequestCreateCandidateDTO
     {
         /// <summary>
-        /// Id del candidato regitrado
+        /// Nombre
         /// </summary>
-        public Guid IdCandidate { get; set; }
-        /// <summary>
-        /// Nombre 
-        /// </summary>
+        [Required]
         public string? Name { get; set; }
         /// <summary>
-        /// Apellidos 
+        /// Apellidos
         /// </summary>
+        [Required]
         public string? Surname { get; set; }
         /// <summary>
         /// Fecha de nacimiento
         /// </summary>
+        [Required]
         public DateTime? Birthdate { get; set; }
         /// <summary>
         /// Correo electrónico
         /// </summary>
+        [Required]
         public string? Email { get; set; }
         /// <summary>
-        /// Fecha de creacion del registro
+        /// Listado de experiencias
         /// </summary>
-        public DateTime? InsertDate { get; set; }
-        /// <summary>
-        /// Fecha de modificacion del registro
-        /// </summary>
-        public DateTime? ModifiedDate { get; set; }
-        public List<CandidateExperiencesList> CandidateExperiences { get; set; }
+        public List<Expiriences> Expiriences { get; set; }
     }
-    public class CandidateExperiencesList
+    public class Expiriences
     {
-        /// <summary>
-        /// Id de la experiencia
-        /// </summary>
-        public Guid IdCandidateExperience { get; set; }
         /// <summary>
         /// Nombre de la compañia
         /// </summary>
@@ -57,11 +48,11 @@ namespace PandaPeAPI.Domain.DTOs
         /// </summary>
         public decimal? Salary { get; set; }
         /// <summary>
-        /// Inicio del contraro
+        /// Inicio del contrato
         /// </summary>
         public DateTime? BeginDate { get; set; }
         /// <summary>
-        /// Final del contrato
+        /// Finalizacion del contrato
         /// </summary>
         public DateTime? EndDate { get; set; }
     }

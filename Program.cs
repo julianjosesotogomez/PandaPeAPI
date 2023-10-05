@@ -2,8 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using PandaPeAPI.Application;
 using PandaPeAPI.Application.Interface;
 using PandaPeAPI.DataAccess.Contexts;
-using PandaPeAPI.Domain;
-using PandaPeAPI.Domain.Interface;
 using MediatR;
 using AutoMapper;
 using PandaPeAPI.Helpers;
@@ -17,13 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Inyeccion de despencencia de MediatR
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 //Inyeccion de dependencias de Aplication
 builder.Services.AddScoped<ISelectionProcessApplication, SelectionProcessApplication>();
 
-//Inyeccion de dependencias de Domain
-builder.Services.AddScoped<ISelectionProcessDomain, SelectionProcessDomain>();
 
 //var stringconnectionBD = builder.Configuration.GetSection("ConnectionStrings").GetSection("SQLDefaultConnection").ToString();
 builder.Services.AddDbContext<SelectionProcessContext>(options => options.UseSqlServer("Data Source=JULIANSOTOGOMEZ\\SQLEXPRESS;Initial Catalog=PandaPe;Integrated Security=false;User ID=sa; Password=Blink3027@;MultipleActiveResultSets=True;"));

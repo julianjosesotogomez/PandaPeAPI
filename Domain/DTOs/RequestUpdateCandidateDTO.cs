@@ -1,12 +1,14 @@
-﻿using PandaPeAPI.Domain.Entities.SelectionProcessEntities;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PandaPeAPI.Domain.DTOs
 {
-    public class CandidatesDTO
+    public class RequestUpdateCandidateDTO
     {
         /// <summary>
         /// Id del candidato regitrado
         /// </summary>
+        [Required]
         public Guid IdCandidate { get; set; }
         /// <summary>
         /// Nombre 
@@ -25,20 +27,16 @@ namespace PandaPeAPI.Domain.DTOs
         /// </summary>
         public string? Email { get; set; }
         /// <summary>
-        /// Fecha de creacion del registro
+        /// Listado de las experiencias
         /// </summary>
-        public DateTime? InsertDate { get; set; }
-        /// <summary>
-        /// Fecha de modificacion del registro
-        /// </summary>
-        public DateTime? ModifiedDate { get; set; }
-        public List<CandidateExperiencesList> CandidateExperiences { get; set; }
+        public List<ExperiencesUpdate> ExperiencesUpdate { get; set; }
     }
-    public class CandidateExperiencesList
+    public class ExperiencesUpdate
     {
         /// <summary>
         /// Id de la experiencia
         /// </summary>
+        [Required]
         public Guid IdCandidateExperience { get; set; }
         /// <summary>
         /// Nombre de la compañia
