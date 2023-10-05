@@ -39,14 +39,14 @@ namespace PandaPeAPI.Domain.Handlers
                 //Item filtrado el cual se quiere actualizar
                 var selectExperience = request.requestUpdateCandidateDTO.ExperiencesUpdate.Where(x => candidate.CandidateExperiences != null && candidate.CandidateExperiences
                                                                                                     .Any(a=>a.IdCandidateExperience == x.IdCandidateExperience)).ToList();
-                
+
                 //Actualizacion para datos de CandidatesExpiriences
                 foreach (var item in selectExperience)
                 {
                     CandidateExperiences candidateExperienceUpdate = new CandidateExperiences();
                     candidateExperienceUpdate.IdCandidateExperience = item.IdCandidateExperience;
                     candidateExperienceUpdate.IdCandidate = candidate.IdCandidate;
-                    candidateExperienceUpdate.Company=item.Company;
+                    candidateExperienceUpdate.Company = item.Company;
                     candidateExperienceUpdate.Job=item.Job;
                     candidateExperienceUpdate.Description=item.Description;
                     candidateExperienceUpdate.Salary=item.Salary;

@@ -25,7 +25,7 @@ namespace PandaPeAPI.Domain.DTOs
         [Required]
         public string? Email { get; set; }
         /// <summary>
-        /// Listado de experiencias
+        /// Listado de experiencias laborales
         /// </summary>
         public List<Expiriences> Expiriences { get; set; }
     }

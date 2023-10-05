@@ -32,6 +32,9 @@ namespace PandaPeAPI.Domain.DTOs
         /// Fecha de modificacion del registro
         /// </summary>
         public DateTime? ModifiedDate { get; set; }
+        /// <summary>
+        /// Listado de experiencias laborales
+        /// </summary>
         public List<CandidateExperiencesList> CandidateExperiences { get; set; }
     }
     public class CandidateExperiencesList
