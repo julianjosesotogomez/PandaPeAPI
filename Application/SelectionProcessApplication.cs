@@ -50,15 +50,14 @@ namespace PandaPeAPI.Application
             try
             {
                 var insertData = _mediator.Send(new CreateCandidate(requestCreateCandidateDTO));
-                if (insertData.IsFaulted) 
+                if (insertData.IsFaulted)
                 {
-                    response.ResponseMessage($"Se presento un error al ingreso del Candidato", false, insertData.Exception.ToString());
+                    response.ResponseMessage($"Se presento un error al ingresar datos del Candidato", false, insertData.Exception.ToString());
                 }
                 else
                 {
-                    response.ResponseMessage("Se realizo correctamente el ingreso del Candidato", true);
+                    response=insertData.Result;
                 }
-                
             }
             catch (Exception ex)
             {
@@ -80,7 +79,7 @@ namespace PandaPeAPI.Application
                 }
                 else
                 {
-                    response.ResponseMessage("Se realizo correctamente la actualizacion de datos del Candidato", true);
+                    response = updateData.Result;
                 }
             }
             catch (Exception ex)
@@ -89,6 +88,35 @@ namespace PandaPeAPI.Application
             }
             return response;
         }
+
+        public ResponseEndPointDTO<bool>DeleteCandidate(Guid IdCandidate)
+        {
+            ResponseEndPointDTO<bool> response = new ResponseEndPointDTO<bool>();
+            try
+            {
+                var delete = _mediator.Send(new DeleteCandidate(IdCandidate));
+                if (delete.IsFaulted)
+                {
+                    response.ResponseMessage($"Se presento un error al eliminar el Candidato", false, delete.Exception.ToString());
+                }
+                else if(!delete.Result)
+                {
+                    response.ResponseMessage($"No se puede eliminar el registro", false);
+                }
+                else
+                {
+                    response.ResponseMessage("Se realizo correctamente la eliminacion de datos del Candidato", true);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                response.ResponseMessage("Error en el sistema", false, ex.Message); ;
+            }
+            return response;
+        }
+
+
         #endregion
 
     }

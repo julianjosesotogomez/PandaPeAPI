@@ -1,0 +1,25 @@
+CREATE TABLE Candidates
+(
+	IdCandidate uniqueidentifier PRIMARY KEY,
+	Name VARCHAR(50),
+	Surname VARCHAR(150),
+	Birthdate DATETIME,
+    Email VARCHAR(250) UNIQUE,
+    InsertDate DATETIME,
+    ModifiedDate DATETIME NULL
+);
+
+CREATE TABLE CandidateExperiences
+(
+    IdCandidateExperience uniqueidentifier PRIMARY KEY,
+    IdCandidate uniqueidentifier,
+    Company VARCHAR(100),
+	Job VARCHAR(100),
+	Description VARCHAR(4000),
+	Salary NUMERIC(8,2),
+	BeginDate DATETIME,
+	EndDate DATETIME NULL,
+	InsertDate DATETIME,
+	ModifyDate DATETIME NULL,
+    FOREIGN KEY (IdCandidate) REFERENCES Candidates(IdCandidate)
+);

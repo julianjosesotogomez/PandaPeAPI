@@ -1,6 +1,6 @@
-﻿namespace PandaPeAPI.Infraestructure.Commands
+﻿using MediatR;
+
+namespace PandaPeAPI.Infraestructure.Commands
 {
-    public class DeleteCandidate
-    {
-    }
+    public record DeleteCandidate(Guid IdCandidate) :IRequest<bool>;
 }

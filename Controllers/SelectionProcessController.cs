@@ -63,6 +63,20 @@ namespace PandaPeAPI.Controllers
                 return _selectionProcessApplication.UpdateCandidate(requestUpdateCandidateDTO);
             });
         }
+        /// <summary>
+        /// Servicio que me permite elimiar registro de candidatos
+        /// </summary>
+        /// <param name="IdCandidate"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route(nameof(SelectionProcessController.DeleteCandidate))]
+        public async Task<ResponseEndPointDTO<bool>>DeleteCandidate(Guid IdCandidate)
+        {
+            return await Task.Run(() =>
+            {
+                return _selectionProcessApplication.DeleteCandidate(IdCandidate);
+            });
+        }
         #endregion
     }
 }

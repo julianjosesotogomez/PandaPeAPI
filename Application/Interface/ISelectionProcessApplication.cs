@@ -10,5 +10,6 @@ namespace PandaPeAPI.Application.Interface
         public ResponseEndPointDTO<List<CandidatesDTO>> GetListCandidates();
         public ResponseEndPointDTO<bool> CreateCandidate(RequestCreateCandidateDTO requestCreateCandidateDTO);
         public ResponseEndPointDTO<bool> UpdateCandidate(RequestUpdateCandidateDTO requestUpdateCandidateDTO);
+        public ResponseEndPointDTO<bool> DeleteCandidate(Guid IdCandidate);
     }
 }
