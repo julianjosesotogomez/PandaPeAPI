@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using PandaPeAPI.Application.Interface;
 using PandaPeAPI.Domain.DTOs;
-using PandaPeAPI.Domain.Entities.SelectionProcessEntities;
-
 using PandaPeAPI.DTOs;
 using PandaPeAPI.Infraestructure.Commands;
 using PandaPeAPI.Infraestructure.Queries;
@@ -26,9 +24,9 @@ namespace PandaPeAPI.Application
         {
             ResponseEndPointDTO<List<CandidatesDTO>> response = new ResponseEndPointDTO<List<CandidatesDTO>>();
             try
-            {
+            { 
                 var listData = _mediator.Send(new GetRegisteredCandidates());
-                if (listData.Result ==null)
+                if (listData.Result?.Count<0)
                 {
                     response.ResponseMessage("No se encuentran candidatos registrados en BD", false);
                 }
@@ -99,13 +97,9 @@ namespace PandaPeAPI.Application
                 {
                     response.ResponseMessage($"Se presento un error al eliminar el Candidato", false, delete.Exception.ToString());
                 }
-                else if(!delete.Result)
-                {
-                    response.ResponseMessage($"No se puede eliminar el registro", false);
-                }
                 else
                 {
-                    response.ResponseMessage("Se realizo correctamente la eliminacion de datos del Candidato", true);
+                    response= delete.Result;
                 }
             }
             catch (Exception ex)

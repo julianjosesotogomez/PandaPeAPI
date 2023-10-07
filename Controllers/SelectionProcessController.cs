@@ -25,7 +25,7 @@ namespace PandaPeAPI.Controllers
         /// <summary>
         /// Servicio que permite obtener el listado de los candidatos 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Listado de todos los candidatos con sus experiencias laborales </returns>
         [HttpGet]
         [Route(nameof(SelectionProcessController.GetListCandidates))]
         public async Task<ResponseEndPointDTO<List<CandidatesDTO>>> GetListCandidates()
@@ -39,7 +39,7 @@ namespace PandaPeAPI.Controllers
         /// Servicio para crear candidatos
         /// </summary>
         /// <param name="requestCreateCandidateDTO"></param>
-        /// <returns></returns>
+        /// <returns>Confirmación de la creación de un candidato con o sin experiencias laborales</returns>
         [HttpPost]
         [Route(nameof(SelectionProcessController.CreateCandidate))]
         public async Task<ResponseEndPointDTO<bool>> CreateCandidate(RequestCreateCandidateDTO requestCreateCandidateDTO)
@@ -53,7 +53,7 @@ namespace PandaPeAPI.Controllers
         /// Servicio para actualizar los datos por candidato
         /// </summary>
         /// <param name="requestUpdateCandidateDTO"></param>
-        /// <returns></returns>
+        /// <returns>Confirmación de la actualización</returns>
         [HttpPut]
         [Route(nameof (SelectionProcessController.UpdateCandidate))]
         public async Task<ResponseEndPointDTO<bool>> UpdateCandidate([FromBody] RequestUpdateCandidateDTO requestUpdateCandidateDTO)
@@ -67,7 +67,7 @@ namespace PandaPeAPI.Controllers
         /// Servicio que me permite elimiar registro de candidatos
         /// </summary>
         /// <param name="IdCandidate"></param>
-        /// <returns></returns>
+        /// <returns>Confirmación de la eliminacion del candidato</returns>
         [HttpDelete]
         [Route(nameof(SelectionProcessController.DeleteCandidate))]
         public async Task<ResponseEndPointDTO<bool>>DeleteCandidate(Guid IdCandidate)

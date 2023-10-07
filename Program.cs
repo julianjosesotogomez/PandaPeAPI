@@ -22,8 +22,8 @@ builder.Services.AddMediatR(typeof(Program).Assembly);
 builder.Services.AddScoped<ISelectionProcessApplication, SelectionProcessApplication>();
 
 
-//var stringconnectionBD = builder.Configuration.GetSection("ConnectionStrings").GetSection("SQLDefaultConnection").ToString();
-builder.Services.AddDbContext<SelectionProcessContext>(options => options.UseSqlServer("Data Source=JULIANSOTOGOMEZ\\SQLEXPRESS;Initial Catalog=PandaPe;Integrated Security=false;User ID=sa; Password=Blink3027@;MultipleActiveResultSets=True;"));
+var stringconnectionBD = builder.Configuration.GetConnectionString("SQLDefaultConnection");
+builder.Services.AddDbContext<SelectionProcessContext>(options => options.UseSqlServer(stringconnectionBD));
 
 // Configuracion Automapper
 var mapperConfig = new MapperConfiguration(mc =>
@@ -32,6 +32,17 @@ var mapperConfig = new MapperConfiguration(mc =>
 });
 IMapper mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton(mapper);
+
+//Configuracion de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PoliticaCORS", x =>
+    {
+        x.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -43,6 +54,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//Habilitacion de politicas CORS
+app.UseCors("PoliticaCORS");
 
 app.UseAuthorization();
 

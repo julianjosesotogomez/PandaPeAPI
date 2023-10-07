@@ -40,22 +40,20 @@ namespace PandaPeAPI.Domain.Handlers
 
                 _selectionProcessContext.Candidates.Add(candidate);
 
-
-
                 foreach (var item in request.requestCreateCandidateDTO.Expiriences)
                 {
-                    CandidateExperiences expirience = new CandidateExperiences();
-                    expirience.IdCandidateExperience = Guid.NewGuid();
-                    expirience.IdCandidate = candidate.IdCandidate;
-                    expirience.Company = item.Company;
-                    expirience.Job = item.Job;
-                    expirience.Description = item.Description;
-                    expirience.Salary = item.Salary;
-                    expirience.BeginDate = item.BeginDate;
-                    expirience.EndDate = item.EndDate;
-                    expirience.InsertDate = DateTime.Now;
+                    CandidateExperiences experience = new CandidateExperiences();
+                    experience.IdCandidateExperience = Guid.NewGuid();
+                    experience.IdCandidate = candidate.IdCandidate;
+                    experience.Company = item.Company;
+                    experience.Job = item.Job;
+                    experience.Description = item.Description;
+                    experience.Salary = item.Salary;
+                    experience.BeginDate = item.BeginDate;
+                    experience.EndDate = item.EndDate;
+                    experience.InsertDate = DateTime.Now;
 
-                    _selectionProcessContext.CandidateExperiences.Add(expirience);
+                    _selectionProcessContext.CandidateExperiences.Add(experience);
 
                 }
 

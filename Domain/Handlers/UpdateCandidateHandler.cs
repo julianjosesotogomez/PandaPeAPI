@@ -20,7 +20,7 @@ namespace PandaPeAPI.Domain.Handlers
         }
         #endregion
         #region Handler
-        public async  Task<ResponseEndPointDTO<bool>> Handle(UpdateCandidate request, CancellationToken cancellationToken)
+        public async Task<ResponseEndPointDTO<bool>> Handle(UpdateCandidate request, CancellationToken cancellationToken)
         {
             ResponseEndPointDTO<bool> response = new ResponseEndPointDTO<bool>();
 
