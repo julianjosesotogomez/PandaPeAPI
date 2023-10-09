@@ -29,15 +29,14 @@ namespace PandaPeAPI.Domain.DTOs
         /// <summary>
         /// Listado de las experiencias
         /// </summary>
-        public List<ExperiencesUpdate> ExperiencesUpdate { get; set; }
+        public List<ExperiencesUpdate> CandidateExperiences { get; set; }
     }
     public class ExperiencesUpdate
     {
         /// <summary>
         /// Id de la experiencia
         /// </summary>
-        [Required]
-        public Guid IdCandidateExperience { get; set; }
+        public Guid? IdCandidateExperience { get; set; }
         /// <summary>
         /// Nombre de la compañia
         /// </summary>

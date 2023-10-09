@@ -40,7 +40,7 @@ namespace PandaPeAPI.Domain.Handlers
 
                 _selectionProcessContext.Candidates.Add(candidate);
 
-                foreach (var item in request.requestCreateCandidateDTO.Expiriences)
+                foreach (var item in request.requestCreateCandidateDTO.CandidateExperiences)
                 {
                     CandidateExperiences experience = new CandidateExperiences();
                     experience.IdCandidateExperience = Guid.NewGuid();

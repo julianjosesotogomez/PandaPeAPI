@@ -27,7 +27,7 @@ namespace PandaPeAPI.Domain.DTOs
         /// <summary>
         /// Listado de experiencias laborales
         /// </summary>
-        public List<Expiriences> Expiriences { get; set; }
+        public List<Expiriences> CandidateExperiences { get; set; }
     }
     public class Expiriences
     {

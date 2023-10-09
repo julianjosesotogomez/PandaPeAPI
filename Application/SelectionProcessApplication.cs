@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using PandaPeAPI.Application.Interface;
 using PandaPeAPI.Domain.DTOs;
 using PandaPeAPI.DTOs;
 using PandaPeAPI.Infraestructure.Commands;
 using PandaPeAPI.Infraestructure.Queries;
+using System.Threading.Tasks;
 
 namespace PandaPeAPI.Application
 {
@@ -11,12 +13,13 @@ namespace PandaPeAPI.Application
     {
         #region Fields
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
         #endregion
         #region Builder
-        public SelectionProcessApplication( IMediator mediator)
+        public SelectionProcessApplication( IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
-
+            _mapper = mapper;
         }
         #endregion
         #region Methods
@@ -47,14 +50,23 @@ namespace PandaPeAPI.Application
             ResponseEndPointDTO<bool> response = new ResponseEndPointDTO<bool>();
             try
             {
-                var insertData = _mediator.Send(new CreateCandidate(requestCreateCandidateDTO));
-                if (insertData.IsFaulted)
+                var candidate = _mapper.Map<CandidatesDTO>(requestCreateCandidateDTO);
+                var validateData = ValidateData(candidate);
+                if (validateData != null)
                 {
-                    response.ResponseMessage($"Se presento un error al ingresar datos del Candidato", false, insertData.Exception.ToString());
+                    response.ResponseMessage(validateData,false);
                 }
                 else
                 {
-                    response=insertData.Result;
+                    var insertData = _mediator.Send(new CreateCandidate(requestCreateCandidateDTO));
+                    if (insertData.IsFaulted)
+                    {
+                        response.ResponseMessage($"Se presento un error al ingresar datos del Candidato", false, insertData.Exception.ToString());
+                    }
+                    else
+                    {
+                        response = insertData.Result;
+                    }
                 }
             }
             catch (Exception ex)
@@ -70,15 +82,25 @@ namespace PandaPeAPI.Application
             ResponseEndPointDTO<bool> response = new ResponseEndPointDTO<bool>();
             try
             {
-                var updateData = _mediator.Send(new UpdateCandidate(requestUpdateCandidateDTO));
-                if (updateData.IsFaulted)
+                var candidate = _mapper.Map<CandidatesDTO>(requestUpdateCandidateDTO);
+                var validateData = ValidateData(candidate);
+                if (validateData != null)
                 {
-                    response.ResponseMessage($"Se presento un error al actualizar datos del Candidato", false, updateData.Exception.ToString());
+                    response.ResponseMessage(validateData, false);
                 }
                 else
                 {
-                    response = updateData.Result;
+                    var updateData = _mediator.Send(new UpdateCandidate(requestUpdateCandidateDTO));
+                    if (updateData.IsFaulted)
+                    {
+                        response.ResponseMessage($"Se presento un error al actualizar datos del Candidato", false, updateData.Exception.ToString());
+                    }
+                    else
+                    {
+                        response = updateData.Result;
+                    }
                 }
+
             }
             catch (Exception ex)
             {
@@ -111,6 +133,30 @@ namespace PandaPeAPI.Application
         }
 
 
+        #endregion
+
+        #region Private Method
+        /// <summary>
+        /// Validación de data ingresada
+        /// </summary>
+        /// <param name="partido"></param>
+        /// <returns></returns>
+        private string ValidateData(CandidatesDTO candidate)
+        {
+            if (candidate.CandidateExperiences?.Count > 0) 
+            {
+                foreach (var item in candidate.CandidateExperiences)
+                {
+                    // Validar el formato del salario verificamos que tenga 8 dígitos en total 6 en su parte entera y 2 decimales
+                    string salaryString = item.Salary.Value.ToString("0.00");
+                    if (!System.Text.RegularExpressions.Regex.IsMatch(salaryString, @"^\d{6}.\d{2}$"))
+                    {
+                        return $"El formato de Salary para el valor {item.Salary} es incorrecto. Debe ser Debe ser NUMERIC(8,2)."; // La validación es incorecta
+                    }
+                }
+            }
+            return null;
+        }
         #endregion
 
     }

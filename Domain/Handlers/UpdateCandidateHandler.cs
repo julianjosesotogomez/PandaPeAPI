@@ -42,13 +42,14 @@ namespace PandaPeAPI.Domain.Handlers
 
 
                 //Actualizacion para datos de CandidatesExpiriences
-                foreach (var item in request.requestUpdateCandidateDTO.ExperiencesUpdate)
+                foreach (var item in request.requestUpdateCandidateDTO.CandidateExperiences)
                 {
                     //Busqueda del registro en tabla CandidateExperiences
                     var experience = _selectionProcessContext.CandidateExperiences.AsNoTracking().FirstOrDefault(x=>x.IdCandidateExperience == item.IdCandidateExperience);
 
                     if (experience != null)
                     {
+                        //Actualizacion de experiencia laboral
                         CandidateExperiences candidateExperienceUpdate = new CandidateExperiences();
                         candidateExperienceUpdate.IdCandidateExperience = experience.IdCandidateExperience;
                         candidateExperienceUpdate.IdCandidate = experience.IdCandidate;
@@ -62,10 +63,26 @@ namespace PandaPeAPI.Domain.Handlers
                         candidateExperienceUpdate.ModifyDate = DateTime.Now;
 
                         _selectionProcessContext.CandidateExperiences.Update(candidateExperienceUpdate);
+
+                    }else if (item.IdCandidateExperience==null)
+                    {
+                        //Se hace la creacion de una nueva experiencia laboral para el candidato (Adicion de experiencia)
+                        CandidateExperiences newExperience = new CandidateExperiences();
+                        newExperience.IdCandidateExperience = Guid.NewGuid();
+                        newExperience.IdCandidate = candidate.IdCandidate;
+                        newExperience.Company = item.Company;
+                        newExperience.Job = item.Job;
+                        newExperience.Description = item.Description;
+                        newExperience.Salary = item.Salary;
+                        newExperience.BeginDate = item.BeginDate;
+                        newExperience.EndDate = item.EndDate;
+                        newExperience.InsertDate = DateTime.Now;
+
+                        _selectionProcessContext.CandidateExperiences.Add(newExperience);
                     }
                     else
                     {
-                        response.ResponseMessage($"No se encuentra registro de la experiencia {item.Job} para el candidato {request.requestUpdateCandidateDTO.Name}", false);
+                        response.ResponseMessage($"No se encuentra registro de la experiencia {item.Job} para el candidato {request.requestUpdateCandidateDTO.Name} {item.IdCandidateExperience}", false);
                         return response;
                     }
                 }
