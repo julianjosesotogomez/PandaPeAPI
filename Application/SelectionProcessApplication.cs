@@ -148,11 +148,13 @@ namespace PandaPeAPI.Application
                 foreach (var item in candidate.CandidateExperiences)
                 {
                     // Validar el formato del salario verificamos que tenga 8 dígitos en total 6 en su parte entera y 2 decimales
-                    string salaryString = item.Salary.Value.ToString("0.00");
-                    if (!System.Text.RegularExpressions.Regex.IsMatch(salaryString, @"^\d{6}.\d{2}$"))
+                    if(item.Salary !=null)
                     {
-                        return $"El formato de Salary para el valor {item.Salary} es incorrecto. Debe ser Debe ser NUMERIC(8,2)."; // La validación es incorecta
+                        string salaryString = item.Salary.Value.ToString("0.00");
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(salaryString, @"^\d{6}.\d{2}$"))
+                            return $"El formato de Salary para el valor {item.Salary} es incorrecto. Debe ser Debe ser NUMERIC(8,2)."; // La validación es incorecta
                     }
+
                 }
             }
             return null;
